@@ -12,6 +12,7 @@
 *** *** ***
 """
 
+# Useless commentary
 import pygame
 
 section_owners = [[0 for i in range(3)] for j in range(3)]
