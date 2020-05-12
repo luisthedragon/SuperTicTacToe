@@ -12,7 +12,6 @@
 *** *** ***
 """
 
-# Useless commentary
 import pygame
 
 section_owners = [[0 for i in range(3)] for j in range(3)]
@@ -64,7 +63,10 @@ def mark(state, player_id, section_row, section_col, element_row, element_col):
 
 
 def check_valid_mark(state, section_row, section_col, element_row, element_col):
-    if state[section_row][section_col][element_row][element_col] != 0:
+    if check_out_of_bounds(section_row, section_col, element_row, element_col):
+        print('out of bounds')
+        return False
+    elif state[section_row][section_col][element_row][element_col] != 0:
         print('already marked cell')
         return False
     elif section_owners[section_row][section_col] != 0:
@@ -72,6 +74,12 @@ def check_valid_mark(state, section_row, section_col, element_row, element_col):
         return False
     elif not check_unlocked_section(section_row, section_col):
         print('section locked')
+        return False
+    return True
+
+
+def check_out_of_bounds(i, j, k, l):
+    if 0 <= i <= 2 and 0 <= j <= 2 and 0 <= k <= 2 and 0 <= l <= 2:
         return False
     return True
 
@@ -158,13 +166,14 @@ def main():
 
 # main()
 
+
 state = [[[[0 for i in range(3)] for j in range(3)] for k in range(3)] for l in range(3)]
 # state[0][0][0][0] = state[0][0][1][1] = state[0][0][2][2] = state[1][1][1][2] = 1
 
 pygame.init()
 
-win_width = win_height = 462
-space_between_sections = 3
+win_width = win_height = 500 # 462
+space_between_sections = 10  # 3
 width, height = 50, 50
 padding = (win_width - width * 9 - space_between_sections * 2) // 2
 
@@ -185,8 +194,13 @@ while run:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # 1 is the left mouse button, 2 is middle, 3 is right.
             if event.button == 1:
-                i, j, k, l = event.pos[1] // 150, event.pos[0] // 150, event.pos[1] // 50 % 3, event.pos[0] // 50 % 3
-                # state[i][j][k][l] = (state[i][j][k][l] + 1) % 3
+                i, j, k, l = (event.pos[1] - padding) // (space_between_sections + height * 3),\
+                             (event.pos[0] - padding) // (space_between_sections + width * 3),\
+                             (event.pos[1] - padding) % (space_between_sections + 3 * height) // height,\
+                             (event.pos[0] - padding) % (space_between_sections + 3 * width) // width #event.pos[0] //
+                # 50 % 3
+                print(i, j, k, l)
+
                 if mark(state, current_player_id, i, j, k, l):
                     current_player_id = current_player_id % 2 + 1
 
