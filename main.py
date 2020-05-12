@@ -42,7 +42,7 @@ WINNING_STATES = [[[1, 1, 1],
                    [1, 0, 0]]]
 
 
-# Only for debug purposes
+# Only for debug purpose
 def print_state(state):
     for i in range(3):
         for j in range(3):
