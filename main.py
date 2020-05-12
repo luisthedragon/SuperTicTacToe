@@ -134,9 +134,10 @@ def get_unlocked_sections():
     return unlocked_sections
 
 
-def main():
-    state = [[[[0 for i in range(3)] for j in range(3)] for k in range(3)] for l in range(3)]
-    state[0][0][0][0] = state[0][0][1][1] = state[0][0][2][2] = state[1][1][1][2] = 1
+# Main without using pygame (last update: 09/05/2020) (Probably won't work)
+# def main():
+#     state = [[[[0 for i in range(3)] for j in range(3)] for k in range(3)] for l in range(3)]
+#     state[0][0][0][0] = state[0][0][1][1] = state[0][0][2][2] = state[1][1][1][2] = 1
     # print_state(state)
     # print(check_section_owned(state, 0, 0))
     # print(mark(state, 1, 0, 0, 0, 0))
