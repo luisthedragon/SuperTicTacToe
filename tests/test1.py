@@ -3,6 +3,7 @@ import pygame
 
 pygame.init()
 
+# DRAW VARIABLES
 win_width = win_height = 500  # before: 462
 space_between_sections = 10   # before: 3
 width, height = 50, 50

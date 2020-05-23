@@ -30,14 +30,19 @@ class Board:
     def __init__(self):
         self.state = [[Miniboard() for i in range(3)] for j in range(3)]
         self.last_marked_section = [-1, -1]
+        self.ready = False
         self.game_over = False
+        self.winner = 0
+        self.p1_turn = True
+
+    def connected(self):
+        return self.ready
 
     # Only for debug purpose
     def print_state(self, state):
         for i in range(3):
             for j in range(3):
-                print(state[i][0].state[j], state[i][1].state[j], state[i][2].state[j])
-            print(' ')
+                state[i][j].print_state(state[i][j].state)
 
     def mark(self, state, player_id, section_row, section_col, element_row, element_col):
         if self.check_valid_mark(state, section_row, section_col, element_row, element_col):
@@ -120,3 +125,6 @@ class Board:
                 if self.check_unlocked_section(i, j):
                     unlocked_sections[i][j] = 1
         return unlocked_sections
+
+    def check_p1_turn(self):
+        return self.p1_turn

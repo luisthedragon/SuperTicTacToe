@@ -34,7 +34,7 @@ class Miniboard:
     def print_state(self, state):
         for i in range(3):
             print(state[i])
-            print(' ')
+        print(' ')
 
     def mark(self, state, player_id, row, col):
         if self.check_valid_mark(state, row, col):
