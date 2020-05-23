@@ -29,7 +29,6 @@ class Board:
 
     def __init__(self):
         self.state = [[Miniboard() for i in range(3)] for j in range(3)]
-        # self.section_owners = [[0 for i in range(3)] for j in range(3)]
         self.last_marked_section = [-1, -1]
         self.game_over = False
 

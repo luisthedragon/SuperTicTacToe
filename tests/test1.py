@@ -1,29 +1,10 @@
 from board import Board
 import pygame
-game_board = Board()
-
-# bigboard.print_state(bigboard.state)
-# bigboard.mark(bigboard.state, 1, 0, 0, 0, 0)
-# bigboard.mark(bigboard.state, 2, 0, 0, 1, 1)
-# bigboard.mark(bigboard.state, 1, 1, 1, 0, 0)
-# bigboard.mark(bigboard.state, 2, 0, 0, 2, 1)
-# bigboard.mark(bigboard.state, 1, 2, 1, 0, 0)
-# bigboard.mark(bigboard.state, 2, 0, 0, 0, 1)
-# print('-------------------------------------')
-# bigboard.print_state(bigboard.state)
-# bigboard.mark(bigboard.state, 1, 0, 1, 0, 0)
-# bigboard.mark(bigboard.state, 2, 0, 2, 1, 0)
-# print('-------------------------------------')
-# bigboard.print_state(bigboard.state)
-# bigboard.mark(bigboard.state, 1, 1, 1, 1, 1)
-# bigboard.mark(bigboard.state, 2, 2, 2, 1, 0)
-# print('-------------------------------------')
-# bigboard.print_state(bigboard.state)
 
 pygame.init()
 
-win_width = win_height = 500 # 462
-space_between_sections = 10  # 3
+win_width = win_height = 500  # before: 462
+space_between_sections = 10   # before: 3
 width, height = 50, 50
 padding = (win_width - width * 9 - space_between_sections * 2) // 2
 
@@ -32,6 +13,7 @@ game_board = Board()
 
 pygame.display.set_caption("SUPER TIC TAC TOE")
 
+winner = 0
 current_player_id = 1
 
 run = True
@@ -54,12 +36,6 @@ while run:
                 if game_board.mark(game_board.state, current_player_id, i, j, k, l):
                     current_player_id = current_player_id % 2 + 1
 
-    # pygame.draw.rect(win, (255, 0, 0), (x, y, width, height))
-    # for i in range(9):
-    #     for j in range(9):
-    #         pygame.draw.rect(win, (255, 0, 0), (i * width, j * height, width, height))
-    #         pygame.draw.rect(win, (0, 0, 0), (i * width + 1, j * height + 1, width - 2, height - 2))
-    # i: section_col j: section_row k: cell_col l: cell_row
     for i in range(3):
         for j in range(3):
             for k in range(3):
