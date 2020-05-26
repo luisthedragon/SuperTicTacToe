@@ -66,7 +66,7 @@ class Board:
         elif state[section_row][section_col].owner != 0:
             print('section owned')
             return False
-        elif not self.check_unlocked_section(section_row, section_col):
+        elif not self.check_unlocked_section(state, section_row, section_col):
             print('section locked')
             return False
         return True
@@ -76,14 +76,24 @@ class Board:
             return False
         return True
 
-    def check_unlocked_section(self, section_row, section_col):
+    def check_unlocked_section(self, state, section_row, section_col):
+
+        if state[section_row][section_col].check_full(state[section_row][section_col].state):
+            # print('Section is full')
+            return False
+        if state[section_row][section_col].owner != 0:
+            # print('Section is owned')
+            return False
         if self.last_marked_section[0] == -1:
             # print('First turn')
             return True
-        if self.get_section_to_unlock(self.state).owner != 0:
+        if self.get_section_to_unlock(state).owner != 0:
             # print('Section to unlock is owned: all sections unlocked')
             return True
-        if [section_row, section_col] == self.get_last_marked_cell_of_last_marked_section(self.state):
+        if self.get_section_to_unlock(state).check_full(self.get_section_to_unlock(state).state):
+            # print('Section to unlock is full: all sections unlocked')
+            return True
+        if [section_row, section_col] == self.get_last_marked_cell_of_last_marked_section(state):
             # print('Last marked cell unlock this section')
             return True
         return False
@@ -118,11 +128,11 @@ class Board:
                     return False
         return True
 
-    def get_unlocked_sections(self):
+    def get_unlocked_sections(self, state):
         unlocked_sections = [[0 for i in range(3)] for j in range(3)]
         for i in range(3):
             for j in range(3):
-                if self.check_unlocked_section(i, j):
+                if self.check_unlocked_section(state, i, j):
                     unlocked_sections[i][j] = 1
         return unlocked_sections
 

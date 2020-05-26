@@ -21,8 +21,14 @@ games = {}
 idCount = 0
 
 
-def threaded_client(conn, p, gameId):
+def broadcast(conns, data):
+    for conn in conns:
+        conn.sendall(pickle.dumps(data))
+
+
+def threaded_client(conns, connId, p, gameId):
     global idCount
+    conn = conns[connId]
     conn.send(str.encode(str(p)))
 
     reply = ""
@@ -37,20 +43,22 @@ def threaded_client(conn, p, gameId):
                 if not data:
                     break
                 else:
-                    if data != 'get':
+                    if data.startswith('mark'):
                         i, j, k, l = int(data[5]), int(data[7]), int(data[9]), int(data[11])
                         # print(p, i, j, k, l)
                         if game.p1_turn and p == 1 or not game.p1_turn and p == 2:
-                            print(game.p1_turn, p == 1, not game.p1_turn, p == 2)
+                            # print(game.p1_turn, p == 1, not game.p1_turn, p == 2)
                             if game.mark(game.state, p, i, j, k, l):
                                 game.p1_turn = not game.p1_turn
 
                                 if game.check_game_over(game.state)[0]:
                                     # print('winner is: Player ', check_game_over(state)[1])
                                     game.game_over, game.winner = game.check_game_over(game.state)
-
-                    conn.sendall(pickle.dumps(game))
-                    print('sendall:', pickle.dumps(game))
+                                broadcast(conns, game)
+                                # print('broadcast:', pickle.dumps(game))
+                    else:
+                        conn.sendall(pickle.dumps(game))
+                        print('sendall:', pickle.dumps(game))
             else:
                 break
         except:
@@ -66,8 +74,10 @@ def threaded_client(conn, p, gameId):
     conn.close()
 
 
+conns = []
 while True:
     conn, addr = s.accept()
+    conns.append(conn)
     print("Connected to:", addr)
 
     idCount += 1
@@ -80,4 +90,4 @@ while True:
         games[gameId].ready = True
         p = 2
 
-    start_new_thread(threaded_client, (conn, p, gameId))
+    start_new_thread(threaded_client, (conns, idCount-1, p, gameId))

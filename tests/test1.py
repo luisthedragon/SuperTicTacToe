@@ -53,7 +53,7 @@ while run:
                     pygame.draw.rect(win, color, (padding + i * (width * 3 + space_between_sections) + k * width + 1,
                                                   padding + j * (height * 3 + space_between_sections) + l * height + 1,
                                                   width, height))
-            unlocked_sections = game_board.get_unlocked_sections()
+            unlocked_sections = game_board.get_unlocked_sections(game_board.state)
             s = pygame.Surface((150, 150), pygame.SRCALPHA)  # per-pixel alpha
             if game_board.game_over:
                 if winner == 1:

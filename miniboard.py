@@ -62,8 +62,13 @@ class Miniboard:
             return False
         return True
 
-    def check_unlocked(self):
-        return self.owner == 0
+    def check_full(self, state):
+        for i in range(3):
+            for j in range(3):
+                if state[i][j] == 0:
+                    # print(i, j)
+                    return False
+        return True
 
     def check_owned(self, state):
         for winning_state in self.WINNING_STATES:
