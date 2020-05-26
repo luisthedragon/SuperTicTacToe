@@ -19,4 +19,9 @@ Basic setup:
    <br>![](/img/server.png)
    1. Run 2 clients
    <br>![](/img/client1.PNG)
-   <br>![](/img/client1.PNG)
+   <br>![](/img/client2.PNG)
+1. Run server in one PC and clients in same PC or another PC (play from multiple PCs!)
+   1. Follow steps i to iv from 1
+   1. Run the clients in your PC or in another PC in your LAN
+   
+Feel free to use and report any bug, all recommendations on how to improve the game are accepted!
