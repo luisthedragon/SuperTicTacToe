@@ -12,12 +12,11 @@ Basic setup:
    <br>![](/img/ipconfig.png)
    1. Set the ip address in server.py and network.py (from step i)
    <br>![](/img/network-ip.png)
-   <br>![](/img/server-ip.png)
+   <br>![](/img/server-ip.PNG)
    1. Allow parallel run for client.py
    <br>![](/img/allow_parallel_run.png)
    1. Run server
    <br>![](/img/server.png)
    1. Run 2 clients
-   <br>![](/img/server.png)
-   <br>![](/img/server.png)
-   <br>![](/img/server.png)
+   <br>![](/img/client1.PNG)
+   <br>![](/img/client1.PNG)
